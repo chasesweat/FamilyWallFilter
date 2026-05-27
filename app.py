@@ -9,7 +9,7 @@ DRIVER_NAME = os.environ.get("DRIVER_NAME", "Chase Sweat")
 EXCLUDE_WORDS = os.environ.get("EXCLUDE_WORDS", "AVAILABLE,UNAVAILABLE,Vacation,OFF")
 
 SCHOOL_ICAL_URL = "https://www.forsyth.k12.ga.us/fs/calendar-manager/events.ics?calendar_ids=21"
-SCHOOL_KEEP_WORDS = ["break", "early release", "no school", "first day", "last day", "workday", "recess", "dismiss", "student holiday", "student & staff holiday"]
+SCHOOL_KEEP_WORDS = ["break", "early release", "no school", "first day", "last day", "workday", "recess", "dismiss", "student holiday", "staff holiday"]
 
 def filter_ical(text, name, exclude_words):
     exclude = [w.strip().lower() for w in exclude_words.split(",") if w.strip()]
@@ -40,14 +40,4 @@ def filter_ical(text, name, exclude_words):
     end = "END:VCALENDAR"
     if end in header:
         header = header.replace(end, "").strip()
-    return header.strip() + "\r\n" + body + "\r\nEND:VCALENDAR"
-
-def filter_school_ical(text, keep_words):
-    events = text.split("BEGIN:VEVENT")
-    header = events[0]
-    kept = []
-    for block in events[1:]:
-        full = "BEGIN:VEVENT" + block
-        unfolded = full.replace("\r\n ", "").replace("\n ", "")
-        summary_line = ""
-        for line in unfold
+    return header.strip() + "\r\n" + body + "\r\
